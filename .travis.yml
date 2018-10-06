@@ -1,5 +1,7 @@
 sudo: required
 
+langage: minimal
+
 services:
   - docker
 
@@ -8,8 +10,15 @@ addons:
     packages:
       - docker-ce
 
+before_install:
+  - sudo apt-get -q update
+  - sudo apt-get install -qy apt-transport-https \
+        ca-certificates \
+        curl \
+        software-properties-common gawk jq parallel
+
 before_script:
   - uname -a
-  - docker-compose version
+  - type -a docker-compose && docker-compose version
   - docker version
 
