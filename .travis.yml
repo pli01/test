@@ -1,9 +1,12 @@
 sudo: required
 
-langage: minimal
+language: minimal
 
 services:
   - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.19.0
 
 addons:
   apt:
@@ -11,11 +14,13 @@ addons:
       - docker-ce
 
 before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
   - sudo apt-get -q update
-  - sudo apt-get install -qy apt-transport-https ca-certificates curl software-properties-common gawk jq parallel
+  - sudo apt-get install -qy make apt-transport-https ca-certificates curl software-properties-common gawk jq parallel
 
 before_script:
   - uname -a
   - type -a docker-compose && docker-compose version
   - docker version
-
