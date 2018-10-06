@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+before_script:
+  - uname -a
+  - docker-compose version
+  - docker version
+
