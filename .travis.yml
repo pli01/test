@@ -32,5 +32,4 @@ before_script:
   - docker version
 
 script:
-  - find . 
   - bash -x test.sh
