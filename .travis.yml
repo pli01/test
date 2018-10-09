@@ -6,6 +6,10 @@ language: minimal
 services:
   - docker
 
+branches:
+  except:
+    - /^pr\..*/
+
 env:
   - DOCKER_COMPOSE_VERSION=1.19.0
 
@@ -29,3 +33,4 @@ before_script:
 
 script:
   - find . 
+  - bash -x test.sh
