@@ -35,5 +35,5 @@ before_script:
 
 script:
   - shellcheck test.sh
-  - bashate test.sh
+  - bashate -i E006 test.sh
   - bash -x test.sh
