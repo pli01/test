@@ -33,11 +33,12 @@ before_script:
   - type -a docker-compose && docker-compose version
   - docker version
 
-script:
-  - shellcheck test.sh
-  - bashate -i E006 test.sh
 jobs:
   include:
+    - stage: Build
+      script:
+        - shellcheck test.sh
+        - bashate -i E006 test.sh
     - stage: deploy staging
       # deploy develop to the staging environment
       deploy:
