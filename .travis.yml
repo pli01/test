@@ -43,9 +43,15 @@ jobs:
       # deploy develop to the staging environment
       deploy:
         - provider: script
-          script: bash deploy.sh staging $TRAVIS_BRANCH
+          script: bash deploy.sh dev $TRAVIS_BRANCH
           cleanup: false
           on:
             branch: devops/*
+      - provider: script
+          script: bash deploy.sh qualif $TRAVIS_BRANCH
+          cleanup: false
+          on:
+            branch: master/*
+
 after_script:
   - echo "END"
