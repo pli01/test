@@ -45,5 +45,7 @@ jobs:
         - provider: script
           script: bash deploy.sh staging $TRAVIS_BRANCH
           cleanup: false
+          on:
+            branch: devops/*
 after_script:
   - echo "END"
