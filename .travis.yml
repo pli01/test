@@ -1,7 +1,7 @@
+os: linux
 dist: trusty
-sudo: required
 
-language: minimal
+language: shell
 
 services:
   - docker
@@ -36,10 +36,13 @@ before_script:
 script:
   - shellcheck test.sh
   - bashate -i E006 test.sh
-deploy:
-  # deploy develop to the staging environment
-  - provider: script
-    script: bash deploy.sh staging $TRAVIS_BRANCH
-    skip_cleanup: true
+jobs:
+  include:
+    - stage: deploy staging
+      # deploy develop to the staging environment
+      deploy:
+        - provider: script
+          script: bash deploy.sh staging $TRAVIS_BRANCH
+          cleanup: false
 after_script:
   - echo "END"
