@@ -37,21 +37,7 @@ jobs:
   include:
     - stage: Build
       script:
-        - shellcheck test.sh
-        - bashate -i E006 test.sh
-    - stage: deploy staging
-      # deploy develop to the staging environment
-      deploy:
-        - provider: script
-          script: bash deploy.sh dev $TRAVIS_BRANCH
-          cleanup: false
-          on:
-            branch: devops/*
-      - provider: script
-          script: bash deploy.sh qualif $TRAVIS_BRANCH
-          cleanup: false
-          on:
-            branch: master/*
+        - bash -x swarm.sh
 
 after_script:
   - echo "END"
