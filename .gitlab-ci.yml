@@ -15,6 +15,7 @@ build_and_publish_qualif_app:
   rules:
     - if: ($CI_COMMIT_BRANCH =~ /^qualif\/*/ )
   script:
+    - apt-get -qy update && apt-get -qy install git
     - echo "# Build $LATEST_VERSION"
     - env
     - ci/version.sh
@@ -27,6 +28,7 @@ build_and_publish_latest_app:
     - if: $CI_COMMIT_REF_NAME =~ /^v*/ && $CI_COMMIT_BRANCH == null
     - if: $CI_COMMIT_BRANCH =~ /^develop/
   script:
+    - apt-get -qy update && apt-get -qy install git
     - echo "# Build $LATEST_VERSION"
     - env
     - ci/version.sh
