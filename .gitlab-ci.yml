@@ -16,6 +16,7 @@ build_and_publish_qualif_app:
     - if: ($CI_COMMIT_BRANCH =~ /^qualif\/*/ )
   script:
     - echo "# Build $LATEST_VERSION"
+    - env
 
 build_and_publish_latest_app:
   stage: build
