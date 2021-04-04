@@ -1,21 +1,19 @@
 image: debian:stretch
 stages:
   - build
-  - staging
 
 default:
   tags:
     - shared
   before_script:
     - echo "# Before script"
-# build only on qualif/*
+
 build_and_publish_qualif_app:
   stage: build
   variables:
     LATEST_VERSION: qualif
-  only:
-    - /^test\/*/
-    - /^qualif\/*/
+  rules:
+    - if: ($CI_COMMIT_BRANCH =~ /^qualif\/*/ )
   script:
     - echo "# Build $LATEST_VERSION"
 
@@ -23,12 +21,7 @@ build_and_publish_latest_app:
   stage: build
   variables:
     LATEST_VERSION: latest
-  only:
-    refs:
-      - /^devlop\/*/
-      - tags
-    variables:
-      - $CI_COMMIT_TAG =~ /^[v].*/
+  rules:
+    - if: ($CI_COMMIT_BRANCH =~ /^develop/  && $CI_COMMIT_TAG =~ /^[v].*/)
   script:
     - echo "# Build $LATEST_VERSION"
-
