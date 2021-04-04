@@ -17,6 +17,7 @@ build_and_publish_qualif_app:
   script:
     - echo "# Build $LATEST_VERSION"
     - env
+    - ci/version.sh
 
 build_and_publish_latest_app:
   stage: build
@@ -28,3 +29,4 @@ build_and_publish_latest_app:
   script:
     - echo "# Build $LATEST_VERSION"
     - env
+    - ci/version.sh
