@@ -18,8 +18,6 @@ kubectl get nodes
 kubectl create deployment nginx --image=nginx
 kubectl create service clusterip nginx --tcp=80:80
 cat <<EOF | kubectl apply -f -
-
-# apiVersion: networking.k8s.io/v1beta1 # for k3s < v1.19
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -39,6 +37,7 @@ spec:
               number: 80
 EOF
 
+set +e
 timeout=120
 test_result=1
 until [ "$timeout" -le 0 -o "$test_result" -eq "0" ] ; do
@@ -48,6 +47,7 @@ until [ "$timeout" -le 0 -o "$test_result" -eq "0" ] ; do
         (( timeout-- ))
         sleep 1
 done
+set -e
 if [ "$test_result" -gt "0" ] ; then
         ret=$test_result
         echo "ERROR"
