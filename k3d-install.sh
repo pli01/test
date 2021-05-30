@@ -18,7 +18,7 @@ kubectl get nodes
 kubectl create deployment nginx --image=nginx
 kubectl create service clusterip nginx --tcp=80:80
 cat <<EOF | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx
