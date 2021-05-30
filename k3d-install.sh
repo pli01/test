@@ -11,10 +11,28 @@ helm version
 # Client version
 kubectl version
 
+# replace default lb with traefik v2
+cat >helm-ingress-traefik.yaml <<EOF
+# see https://rancher.com/docs/k3s/latest/en/helm/
+# see https://github.com/traefik/traefik-helm-chart
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: ingress-controller-traefik
+  namespace: kube-system
+spec:
+  repo: https://helm.traefik.io/traefik
+  chart: traefik
+  version: 9.8.0
+  targetNamespace: kube-system
+EOF
+
 k3d cluster create dev \
    --port 8080:80@loadbalancer \
    --port 8443:443@loadbalancer \
    --servers 1 --agents 1 \
+   --k3s-server-arg '--no-deploy=traefik' \
+   --volume "$(pwd)/helm-ingress-traefik.yaml:/var/lib/rancher/k3s/server/manifests/helm-ingress-traefik.yaml" \
    --wait
 
 docker ps
