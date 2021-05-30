@@ -28,7 +28,7 @@ spec:
 EOF
 
 # replace flanel with calico
-curl -O https://raw.githubusercontent.com/rancher/k3d/main/docs/usage/guides/calico.yaml
+curl -O https://k3d.io/usage/guides/calico.yaml
 
 k3d cluster create dev \
    --port 8080:80@loadbalancer \
@@ -45,6 +45,8 @@ kubectl config current-context
 #export KUBECONFIG=$(k3d kubeconfig write dev)
 
 kubectl get nodes
+
+kubectl get pods -n kube-system
 
 kubectl create deployment nginx --image=nginx
 
