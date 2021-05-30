@@ -19,7 +19,6 @@ kubectl config current-context
 
 kubectl get nodes
 
-
 kubectl create deployment nginx --image=nginx
 
 kubectl create service clusterip nginx --tcp=80:80
@@ -61,3 +60,5 @@ if [ "$test_result" -gt "0" ] ; then
         exit $ret
 fi
 
+# clean
+k3d cluster delete dev
