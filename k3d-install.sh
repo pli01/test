@@ -6,6 +6,11 @@ set -x
 curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | \
   TAG=v4.4.4 bash
 
+k3d --version
+helm version
+# Client version
+kubectl version
+
 k3d cluster create dev \
    --port 8080:80@loadbalancer \
    --port 8443:443@loadbalancer \
