@@ -3,12 +3,17 @@ set -e
 set -o pipefail
 set -x
 
-curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v4.4.4 bash
+curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | \
+  TAG=v4.4.4 bash
 
 k3d cluster create dev \
-   --port 8080:80@loadbalancer --port 8443:443@loadbalancer
+   --port 8080:80@loadbalancer \
+   --port 8443:443@loadbalancer \
+   --servers 1 --agents 1 \
+   --wait
 
 docker ps
+
 kubectl config current-context
 #export KUBECONFIG=$(k3d kubeconfig write dev)
 
@@ -16,6 +21,7 @@ kubectl get nodes
 
 
 kubectl create deployment nginx --image=nginx
+
 kubectl create service clusterip nginx --tcp=80:80
 cat <<EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
@@ -37,6 +43,7 @@ spec:
               number: 80
 EOF
 
+# test up
 set +e
 timeout=120
 test_result=1
