@@ -18,6 +18,8 @@ kubectl get nodes
 kubectl create deployment nginx --image=nginx
 kubectl create service clusterip nginx --tcp=80:80
 cat <<EOF | kubectl apply -f -
+
+# apiVersion: networking.k8s.io/v1beta1 # for k3s < v1.19
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -29,9 +31,12 @@ spec:
   - http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: nginx
-          servicePort: 80
+          service:
+            name: nginx
+            port:
+              number: 80
 EOF
 
 curl --fail -s -L http://localhost:8080/
