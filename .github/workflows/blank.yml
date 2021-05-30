@@ -28,3 +28,7 @@ jobs:
           uname -a
           type -a docker-compose && docker-compose version
           docker version
+
+      - name: prepare k3d
+        run: |
+          ./k3d-install.sh
