@@ -39,4 +39,18 @@ spec:
               number: 80
 EOF
 
-curl --fail -s -L http://localhost:8080/
+timeout=120
+test_result=1
+until [ "$timeout" -le 0 -o "$test_result" -eq "0" ] ; do
+        curl --fail -s -L http://localhost:8080/
+        test_result=$?
+        echo "Wait $timeout seconds: wait up $test_result";
+        (( timeout-- ))
+        sleep 1
+done
+if [ "$test_result" -gt "0" ] ; then
+        ret=$test_result
+        echo "ERROR"
+        exit $ret
+fi
+
