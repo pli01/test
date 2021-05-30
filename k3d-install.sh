@@ -27,12 +27,16 @@ spec:
   targetNamespace: kube-system
 EOF
 
+# replace flanel with calico
+curl -O https://raw.githubusercontent.com/rancher/k3d/main/docs/usage/guides/calico.yaml
+
 k3d cluster create dev \
    --port 8080:80@loadbalancer \
    --port 8443:443@loadbalancer \
    --servers 1 --agents 1 \
-   --k3s-server-arg '--no-deploy=traefik' \
+   --k3s-server-arg '--no-deploy=traefik --flannel-backend=none' \
    --volume "$(pwd)/helm-ingress-traefik.yaml:/var/lib/rancher/k3s/server/manifests/helm-ingress-traefik.yaml" \
+   --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" \
    --wait
 
 docker ps
