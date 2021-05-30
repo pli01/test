@@ -3,9 +3,11 @@ set -e
 set -o pipefail
 set -x
 
+# get k3d
 curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | \
   TAG=v4.4.4 bash
 
+# Get version
 k3d --version
 helm version
 # Client version
@@ -30,6 +32,8 @@ EOF
 # replace flanel with calico
 curl -O https://k3d.io/usage/guides/calico.yaml
 
+# Create a cluster, mapping the ingress port 80 to localhost:8080 and 443 to 8443
+#  1 server, 1 agent, traefik v2 and calico
 k3d cluster create dev \
    --port 8080:80@loadbalancer \
    --port 8443:443@loadbalancer \
@@ -42,15 +46,20 @@ k3d cluster create dev \
 docker ps
 
 kubectl config current-context
-#export KUBECONFIG=$(k3d kubeconfig write dev)
+
+# Get the kubeconfig file
+export KUBECONFIG=$(k3d kubeconfig write dev)
 
 kubectl get nodes
-
 kubectl get pods -n kube-system
 
+# Create a nginx deployment
 kubectl create deployment nginx --image=nginx
 
+# Create a ClusterIP service 
 kubectl create service clusterip nginx --tcp=80:80
+
+# Create an ingress object for it
 cat <<EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: Ingress
