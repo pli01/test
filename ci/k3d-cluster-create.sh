@@ -31,13 +31,13 @@ curl -sSLO https://k3d.io/usage/guides/calico.yaml
 #  1 server, 1 agent, traefik v2 and calico
 echo "# Create k3d cluster ${cluster_name}"
 if [ -n "$http_proxy" ] ; then
-  k3d_args="$k3d_args -e \"HTTP_PROXY=${http_proxy}\""
+  k3d_args="$k3d_args -e \"HTTP_PROXY=${http_proxy}@all\""
 fi
 if [ -n "$https_proxy" ] ; then
-  k3d_args="$k3d_args -e \"HTTPS_PROXY=${https_proxy}\""
+  k3d_args="$k3d_args -e \"HTTPS_PROXY=${https_proxy}@all\""
 fi
 if [ -n "$no_proxy" ] ; then
-  k3d_args="$k3d_args -e \"NO_PROXY=${no_proxy}\""
+  k3d_args="$k3d_args -e \"NO_PROXY=${no_proxy}@all\""
 fi
 
 
@@ -60,9 +60,7 @@ k3d cluster create ${cluster_name} \
    --servers 1 --agents 1 \
    --registry-create \
    --volume "${images_dir}:/var/lib/rancher/k3s/agent/images@all" \
-   -e "HTTP_PROXY=${http_proxy}@all" \
-   -e "HTTPS_PROXY=${https_proxy}@all" \
-   -e "NO_PROXY=${no_proxy}@all" \
+   $k3d_args \
    --wait
 
 docker ps
