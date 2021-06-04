@@ -1,5 +1,6 @@
 SHELL = /bin/bash
 APP ?= test
+export
 #
 # k8s
 #
