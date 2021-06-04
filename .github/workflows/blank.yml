@@ -31,4 +31,4 @@ jobs:
 
       - name: prepare k3d
         run: |
-          ./k3d-install.sh
+          make run-k3d-tests
