@@ -26,8 +26,7 @@ jobs:
       - name: prepare
         run: |
           ip add
-          host_ip=$( ( ifconfig eth0  2>&- || ifconfig en0 2>&- ) | grep inet.*netmask | awk ' { print $2 }')
-          echo "# ${host_ip}"
+          bash -x ip.sh
           env
       - name: prepare
         run: |
