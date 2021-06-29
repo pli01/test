@@ -25,6 +25,10 @@ jobs:
       # Runs extract
       - name: prepare
         run: |
+          ip add
+          env
+      - name: prepare
+        run: |
           sudo apt-get install -qy make apt-transport-https ca-certificates curl software-properties-common gawk jq parallel curl
           uname -a
           type -a docker-compose && docker-compose version
