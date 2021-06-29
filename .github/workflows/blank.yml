@@ -26,6 +26,7 @@ jobs:
       - name: prepare
         run: |
           ip add
+          ifconfig eth0
           bash -x ip.sh
           env
       - name: prepare
