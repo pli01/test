@@ -39,7 +39,8 @@ jobs:
       - name: prepare k3d
         run: |
           echo make run-k3d-tests
-#      - name: job release
-#        if: ( success()  && ( startsWith(github.ref,'refs/tags/v') || startsWith(github.ref,'refs/heads/master') ) )
-#        run: |
-#          echo "RELEASE"
+      - name: merge master
+        #if: ( success()  && ( startsWith(github.ref,'refs/tags/v') || startsWith(github.ref,'refs/heads/master') ) )
+        if: ( success()  && startsWith(github.ref,'refs/heads/master') )
+        run: |
+          echo "merge master"
