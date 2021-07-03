@@ -7,7 +7,7 @@ name: CI
 #on: [pull_request]
 on:
   push:
-    branches-ignore: [ master ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
