@@ -37,3 +37,11 @@ jobs:
           tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
           tag_message: Release ${{ steps.prepare_tag.outputs.tag_name }}
           EOF
+          git checkout -b release || git checkout release
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
+          git status -v
+          git remote -v
+          git add .
+          git commit -am "Automated Release ${{ steps.prepare_tag.outputs.tag_name }}"
+          git push
