@@ -21,6 +21,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Extract tag name
+        shell: bash
+        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
+        id: extract_tag
+      - name: Extract version
+        shell: bash
+        run: echo "##[set-output name=version;]$(git describe --tags --always)"
+        id: code_version
+
       - name: job release
         run: |
-          echo "publish RELEASE version latest"
+          echo "publish RELEASE version latest ${{ steps.code_version.outputs.version }}"
