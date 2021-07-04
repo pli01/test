@@ -23,4 +23,4 @@ jobs:
 
       - name: job release
         run: |
-          echo "RELEASE version latest"
+          echo "publish RELEASE version latest"
