@@ -37,7 +37,7 @@ jobs:
       - name: deploy on github branch releases
         uses: peaceiris/actions-gh-pages@v3.7.3
         if: success()
-        env:
-          PUBLISH_BRANCH: releases
-          PUBLISH_DIR: ./
-
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: releases
