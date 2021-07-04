@@ -46,4 +46,4 @@ jobs:
           git remote -v
           git add -A . || true
           git commit -am "Automated Release ${{ steps.prepare_tag.outputs.tag_name }}" || true
-          git push --set-upstream origin release
+          git push --set-upstream origin release -f
