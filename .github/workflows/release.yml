@@ -37,6 +37,7 @@ jobs:
           tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
           tag_message: Release ${{ steps.prepare_tag.outputs.tag_name }}
           EOF
+          ./ci/version.sh
           git checkout -b release || git checkout release
           git config user.name "GitHub Actions"
           git config user.email noreply@github.com
