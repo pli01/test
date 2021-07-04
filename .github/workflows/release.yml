@@ -29,7 +29,7 @@ jobs:
           echo "::set-output name=tag_name::${TAG_NAME}"
           echo "::set-output name=deploy_tag_name::deploy-${TAG_NAME}"
 
-      - name: job release
+      - name: Push release branch
         run: |
           set -x
           cat <<'EOF'
@@ -39,11 +39,9 @@ jobs:
           tag_message: Release ${{ steps.prepare_tag.outputs.tag_name }}
           EOF
           ./ci/version.sh
-          git checkout -b release || git checkout release
+          git checkout -B release || git checkout release
           git config user.name "GitHub Actions"
           git config user.email noreply@github.com
           git status -v
           git remote -v
-          git add -A . || true
-          git commit -am "Automated Release ${{ steps.prepare_tag.outputs.tag_name }}" || true
           git push --set-upstream origin release -f
