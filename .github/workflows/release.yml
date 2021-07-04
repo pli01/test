@@ -32,4 +32,12 @@ jobs:
 
       - name: job release
         run: |
-          echo "publish RELEASE version latest ${{ steps.code_version.outputs.version }}"
+          echo "publish RELEASE version latest ${{ steps.code_version.outputs.version }} ${{ steps.extract_tag.outputs.version }}"
+
+      - name: deploy on github branch releases
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        if: success()
+        env:
+          PUBLISH_BRANCH: releases
+          PUBLISH_DIR: ./
+
