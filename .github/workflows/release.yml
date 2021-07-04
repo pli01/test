@@ -41,3 +41,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
           publish_branch: releases
+          full_commit_message: "Release ${{ github.event.head_commit.message }}"
