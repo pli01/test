@@ -21,6 +21,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: prepare
+        run: |
+          docker version
+          docker-compose version
+          exit 1
 
       # Runs extract
       - name: prepare
