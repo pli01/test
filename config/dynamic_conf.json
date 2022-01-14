@@ -1,0 +1,35 @@
+{
+  "http": {
+    "routers": {
+      "my-api": {
+        "rule": "Host(`{{ env \"APP\" }}.{{ env \"REGION_NAME\" }}.scalingo.io`) && PathPrefix(`/`)",
+        "service": "my-api",
+        "middlewares": [
+          "removeHeader"
+        ]
+      }
+    },
+    "middlewares": {
+      "removeHeader": {
+        "headers": {
+          "customResponseHeaders": {
+            "x-request-id": "",
+            "strict-transport-security": ""
+          }
+        }
+      }
+    },
+    "services": {
+      "my-api": {
+        "loadBalancer": {
+          "passHostHeader": false,
+          "servers": [
+            {
+              "url": "https://betagouv-calendso.{{ env \"REGION_NAME\" }}.scalingo.io/"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
