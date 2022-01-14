@@ -27,7 +27,7 @@
           "passHostHeader": false,
           "servers": [
             {
-              "url": "https://betagouv-calendso.osc-fr1.scalingo.io/"
+              "url": "https://betagouv-test.osc-fr1.scalingo.io/"
             }
           ]
         }
