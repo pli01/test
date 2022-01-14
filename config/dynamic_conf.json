@@ -2,7 +2,7 @@
   "http": {
     "routers": {
       "my-api": {
-        "rule": "Host(`{{ env \"APP\" }}.{{ env \"REGION_NAME\" }}.scalingo.io`) && PathPrefix(`/`)",
+        "rule": "Host(`debug-app-buildpack.osc-fr1.scalingo.io`) && PathPrefix(`/`)",
         "service": "my-api",
         "middlewares": [
           "removeHeader"
@@ -25,7 +25,7 @@
           "passHostHeader": false,
           "servers": [
             {
-              "url": "https://betagouv-calendso.{{ env \"REGION_NAME\" }}.scalingo.io/"
+              "url": "https://betagouv-calendso.osc-fr1.scalingo.io/"
             }
           ]
         }
