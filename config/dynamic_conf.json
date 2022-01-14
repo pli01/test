@@ -1,5 +1,3 @@
-// Providers HTTP
-//
 {
   "http": {
     "routers": {
