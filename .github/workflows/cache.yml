@@ -22,7 +22,8 @@ jobs:
           type -a python
           type -a pip
           pip cache dir
-          python -m pip install --upgrade pipenv wheel
+          # python -m pip install --upgrade pipenv wheel
+          curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
 
       - id: cache-pipenv
         uses: actions/cache@v3
