@@ -17,19 +17,21 @@ jobs:
           python-version: "3"
           cache: 'pipenv'
 
+      - id: cache-pipenv
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}
+
       - name: Install pipenv
         run: |
           type -a python
           type -a pip
           pip cache dir
-          # python -m pip install --upgrade pipenv wheel
+          python -m pip install --upgrade pipenv wheel
           curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-
-      - id: cache-pipenv
-        uses: actions/cache@v3
-        with:
-          path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
 
       - name: Install dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
