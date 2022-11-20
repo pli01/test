@@ -1,2 +1,4 @@
 [packages]
 ansible = "==6.5.*"
+ovh = '*'
+dnspython = '*'
