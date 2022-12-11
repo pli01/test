@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
     inputs:
       terraform_taint_list:
-        description: 'comma separated list of terraform ressource to taint (ex: module.a[0],module.b[0] )'
+        description: 'space separated list of terraform ressource to taint, exemple: module.a[0] module.b[0]'
         required: true
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
         run: |
           echo "GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "taint: ${{ inputs.terraform_taint_list}}"
-          [ -z "${{ inputs.terraform_taint_list}}"] && exit 0
+          [[ -z "${{ inputs.terraform_taint_list}}" ]] && exit 0
           list=(${{ inputs.terraform_taint_list}}) ; for taint in "${list[@]}" ; do  echo "-> ${taint}"; done
 
 
