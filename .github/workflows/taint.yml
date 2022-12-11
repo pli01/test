@@ -13,5 +13,7 @@ jobs:
         run: |
           echo "GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "taint: ${{ inputs.terraform_taint_list}}"
+          [ -z "${{ inputs.terraform_taint_list}}"] && exit 0
+          list=(${{ inputs.terraform_taint_list}}) ; for taint in "${list[@]}" ; do  echo "-> ${taint}"; done
 
 
