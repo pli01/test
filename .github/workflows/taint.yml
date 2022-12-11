@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+    inputs:
+      terraform_taint_list:
+        description: 'comma separated list of terraform ressource to taint (ex: module.a[0],module.b[0] )'
+        required: true
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for changes
+        run: |
+          echo "GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          echo "taint: ${{ inputs.terraform_taint_list}}"
+
+
